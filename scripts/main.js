@@ -1,15 +1,21 @@
+/** Zomato Project
+ *
+ */
+
 /* eslint-env jquery */
 const apiKey = '0049a4d76f9eb8a49b40a324517aa27f'
 var categoriesId = []
 var cuisinesId = []
+var restaurantList = ''
+var start = 0
+
 $(document).ready(function () {
   // Get restaurants list
   $.ajax({
-    url: 'https://developers.zomato.com/api/v2.1/search?entity_id=297&entity_type=city&start=0&count=100&category=10&sort=rating',
+    url: 'https://developers.zomato.com/api/v2.1/search?entity_id=297&entity_type=city&start=0',
     headers: { 'user-key': apiKey },
     type: 'GET',
     success: function (result) {
-      console.log(result)
       displayRestaurants(result)
     },
     error: function (error) {
@@ -54,9 +60,9 @@ $(document).ready(function () {
         }
       }
     }
-    categoriesId.forEach(element => {
-      getNewRestaurantList()
-    })
+    restaurantList = ''
+    start = 0
+    getNewRestaurantList()
   })
 
   $('.header__cusines input').change(function () {
@@ -72,16 +78,30 @@ $(document).ready(function () {
       }
       console.log(cuisinesId)
     }
+    restaurantList = ''
+    start = 0
     getNewRestaurantList()
   })
 })
 
-function displayRestaurants (restaurant) {
-  let newList = ''
-  for (var i = 0; i < restaurant.restaurants.length; i++) {
-    newList = newList + '<div class="restaurants__restaurant">' + restaurant.restaurants[i].restaurant.name + '</div>'
+$(window).scroll(function () {
+  // End of the document reached?
+  if ($(document).height() - $(this).height() === $(this).scrollTop()) {
+    console.log('Scrolled to Bottom')
+    if (start < 100) {
+      start += 20
+      getNewRestaurantList()
+    }
   }
-  $('.restaurants__list').html(newList)
+})
+
+function displayRestaurants (restaurant) {
+  for (var i = 0; i < restaurant.restaurants.length; i++) {
+    if (!restaurantList.includes(restaurant.restaurants[i].restaurant.id)) {
+      restaurantList = restaurantList + '<a href="#" class="restaurants__restaurant" data-cost="' + restaurant.restaurants[i].restaurant.price_range + '" data-rating="' + restaurant.restaurants[i].restaurant.user_rating.aggregate_rating + '" id="' + restaurant.restaurants[i].restaurant.id + '">' + restaurant.restaurants[i].restaurant.name + '</a>'
+    }
+  }
+  $('.restaurants__list').html(restaurantList)
 }
 
 function displayCategories (categories) {
@@ -127,20 +147,39 @@ function displayCuisines (cuisines) {
 }
 
 function getNewRestaurantList () {
-  let queryURL = 'https://developers.zomato.com/api/v2.1/search?entity_id=297&entity_type=city&start=0'
+  let queryURL = 'https://developers.zomato.com/api/v2.1/search?entity_id=297&entity_type=city&start='
+  queryURL = queryURL + start
   if (cuisinesId.length > 0) {
     queryURL = queryURL + '&cuisines=' + cuisinesId.join('%2C')
   }
-  $.ajax({
-    url: queryURL,
-    headers: { 'user-key': apiKey },
-    type: 'GET',
-    success: function (result) {
-      console.log(result)
-      displayRestaurants(result)
-    },
-    error: function (error) {
-      console.log(error)
-    }
-  })
+  if (categoriesId.length === 0) {
+    $.ajax({
+      url: queryURL,
+      headers: { 'user-key': apiKey },
+      type: 'GET',
+      success: function (result) {
+        console.log(result)
+        displayRestaurants(result)
+      },
+      error: function (error) {
+        console.log(error)
+      }
+    })
+  } else {
+    categoriesId.forEach(categoryId => {
+      const queryURLCategory = queryURL + '&category=' + categoryId
+      $.ajax({
+        url: queryURLCategory,
+        headers: { 'user-key': apiKey },
+        type: 'GET',
+        success: function (result) {
+          console.log(result)
+          displayRestaurants(result)
+        },
+        error: function (error) {
+          console.log(error)
+        }
+      })
+    })
+  }
 }
