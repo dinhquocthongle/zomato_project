@@ -4,21 +4,53 @@
 		<meta charset="utf-8">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="scripts/main.js"></script>
+		<script src="scripts/lib/multirange.js"></script>
+		<link rel="stylesheet" href="style/lib/multirange.css">
 		<title>Zomato Project</title>
 	</head>
 	<body>
 		<div class="header">
 			<div class="header__categories">
-				
+				<input type="checkbox" name="dinner">
+				<label for="dinner">Dinner</label>
+				<input type="checkbox" name="takeaway">
+				<label for="takeaway">Take Away</label>
+				<input type="checkbox" name="delivery">
+				<label for="delivery">Delivery</label>
+				<input type="checkbox" name="pubsbars">
+				<label for="pubsbars">Pubs & Bars</label>
 			</div>
 			<div class="header__cusines">
-
+				<input type="checkbox" name="cafefood">
+				<label for="cafefood">Cafe Food</label>
+				<input type="checkbox" name="coffeeandtea">
+				<label for="coffeeandtea">Coffee and Tea</label>
+				<input type="checkbox" name="pizza">
+				<label for="pizza">Pizza</label>
+				<input type="checkbox" name="fastfood">
+				<label for="fastfood">Fast Food</label>
+				<input type="checkbox" name="asian">
+				<label for="asian">Asian</label>
+				<input type="checkbox" name="bakery">
+				<label for="bakery">Bakery</label>
+				<input type="checkbox" name="italian">
+				<label for="italian">Italian</label>
+				<input type="checkbox" name="sanwich">
+				<label for="sanwich">Sanwich</label>
+				<input type="checkbox" name="chinese">
+				<label for="chinese">Chinese</label>
+				<input type="checkbox" name="pubfood">
+				<label for="pubfood">Pub Food</label>
+				<input type="checkbox" name="other">
+				<label for="other">Other</label>
 			</div>
 			<div class="header__right">
 				<div class="header__rating">
+					<input type="range" multiple value="0,100" class="rating"/>
+				</div>
+				<div class="header__cost">
 
 				</div>
-				<div class="header__cost"></div>
 			</div>
 		</div>
 		<div class="restaurants">
