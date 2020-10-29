@@ -248,6 +248,7 @@ function displayRestaurantDetails (restaurantDetails) {
   } else {
     delivery = 1
   }
+  // Setup a placeholer if no image is available.
   var thumbnail = restaurantDetails.thumb
   if (restaurantDetails.thumb.length === 0) {
     thumbnail = 'img/placeholder-300x300.jpg'
