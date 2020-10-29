@@ -11,7 +11,7 @@
 		<div class="header">
 			<div class="wrap">
 				<div class="header__categories">
-					<h4>CATEGORY</h4>
+					<h5>CATEGORY</h5>
 					<div class="header__categories__content">
 						<div class="header__category">
 							<input type="checkbox" name="dinner">
@@ -32,7 +32,7 @@
 					</div>
 				</div>
 				<div class="header__cuisines">
-					<h4>CUISINE</h4>
+					<h5>CUISINE</h5>
 					<div class="header__cuisines__content">
 						<div class="header__cuisine">
 							<input type="checkbox" name="cafefood">
@@ -84,11 +84,63 @@
 				<div class="header__right">
 					<div class="header__rating">
 						<h5>RATING</h5>
-						<input type="range" multiple value="0,100" class="rating"/>
+						<!-- This slider is from https://codepen.io/glitchworker/pen/XVdKqj -->
+						<div slider id="slider-distance">
+							<div>
+								<div inverse-left style="width:100%;"></div>
+								<div inverse-right style="width:100%;"></div>
+								<div range style="left:0%;right:0%;"></div>
+								<span thumb style="left:0%;"></span>
+								<span thumb style="left:100%;"></span>
+							</div>
+							<input class="rating_min" type="range" tabindex="0" value="1" max="5" min="1" step="1" oninput="
+							this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
+							var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+							var children = this.parentNode.childNodes[1].childNodes;
+							children[1].style.width=value+'%';
+							children[5].style.left=value+'%';
+							children[7].style.left=value+'%';" />
+						  
+							<input class="rating_max" type="range" tabindex="0" value="5" max="5" min="1" step="1" oninput="
+							this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
+							var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+							var children = this.parentNode.childNodes[1].childNodes;
+							children[3].style.width=(100-value)+'%';
+							children[5].style.right=(100-value)+'%';
+							children[9].style.left=value+'%';" />
+						</div>
+						<div class="header__rating_min">1</div>
+						<div class="header__rating_max">5</div>
 					</div>
 					<div class="header__cost">
 						<h5>COST</h5>
-						<input type="range" multiple value="0,100" class="cost"/>
+						<!-- This slider is from https://codepen.io/glitchworker/pen/XVdKqj -->
+						<div slider id="slider-distance">
+							<div>
+								<div inverse-left style="width:100%;"></div>
+								<div inverse-right style="width:100%;"></div>
+								<div range style="left:0%;right:0%;"></div>
+								<span thumb style="left:0%;"></span>
+								<span thumb style="left:100%;"></span>
+							</div>
+							<input class="cost_min" type="range" tabindex="0" value="1" max="4" min="1" step="1" oninput="
+							this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
+							var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+							var children = this.parentNode.childNodes[1].childNodes;
+							children[1].style.width=value+'%';
+							children[5].style.left=value+'%';
+							children[7].style.left=value+'%';" />
+						  
+							<input class="cost_max" type="range" tabindex="0" value="4" max="4" min="1" step="1" oninput="
+							this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
+							var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+							var children = this.parentNode.childNodes[1].childNodes;
+							children[3].style.width=(100-value)+'%';
+							children[5].style.right=(100-value)+'%';
+							children[9].style.left=value+'%';" />
+						</div>
+						<div class="header__cost_min">$</div>
+						<div class="header__cost_max">$$$$</div>
 					</div>
 				</div>
 			</div>
@@ -102,7 +154,6 @@
 				</div>
 			</div>
 		</div>
-
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="scripts/main.js"></script>
 		<script src="scripts/lib/multirange.js"></script>

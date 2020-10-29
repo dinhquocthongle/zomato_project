@@ -9,6 +9,9 @@ var cuisinesId = []
 var restaurantList = '<h5>RESULTS</h5>'
 var start = 0
 
+var rating = [1, 5]
+var cost = [1, 4]
+
 $(document).ready(function () {
   // Setup the default restaurants list.
   $.ajax({
@@ -16,6 +19,7 @@ $(document).ready(function () {
     headers: { 'user-key': apiKey },
     type: 'GET',
     success: function (result) {
+      console.log(result)
       displayRestaurants(result)
     },
     error: function (error) {
@@ -88,6 +92,26 @@ $(document).ready(function () {
     }, 500)
     getNewRestaurantList()
   })
+
+  // Filter the current list when user changed the cost.
+  $('.cost_max').change(function () {
+    cost[1] = parseInt($(this).val())
+    sortByCost()
+  })
+  $('.cost_min').change(function () {
+    cost[0] = parseInt($(this).val())
+    sortByCost()
+  })
+
+  // Filter the current list when user changed the rating.
+  $('.rating_max').change(function () {
+    rating[1] = parseInt($(this).val())
+    sortByRating()
+  })
+  $('.rating_min').change(function () {
+    rating[0] = parseInt($(this).val())
+    sortByRating()
+  })
 })
 
 // If the user reached the end of the list, load a new list (limited to 100).
@@ -108,6 +132,8 @@ function displayRestaurants (restaurant) {
     }
   }
   $('.restaurants__list').html(restaurantList)
+  sortByRating()
+  sortByCost()
   // Get the selected restaurant details.
   $('.restaurants__restaurant').click(function () {
     getRestaurantDetails($(this))
@@ -222,7 +248,11 @@ function displayRestaurantDetails (restaurantDetails) {
   } else {
     delivery = 1
   }
-  const contextDetails = '<img src="' + restaurantDetails.thumb + '" class="restaurants_details__image"><div class="restaurants_details__content"><div class="restaurants_details__content_name">' + restaurantDetails.name + '</div><div class="restaurants_details__content_location">' + restaurantDetails.location.address + '</div><div class="restaurants_details__content_booking_' + restaurantDetails.has_table_booking + '"></div><div class="restaurants_details__content_delivery_' + delivery + '"></div><div class="restaurants_details__content_heading">CUISINES</div><div class="restaurants_details__content_cuisines">' + restaurantDetails.cuisines + '</div><div class="restaurants_details__content_heading">PHONE</div><div class="restaurants_details__content_phone">' + restaurantDetails.phone_numbers + '</div><div class="restaurants_details__content_heading">OPENING HOURS</div><div class="restaurants_details__content_openinghours">' + restaurantDetails.timings + '</div></div>'
+  var thumbnail = restaurantDetails.thumb
+  if (restaurantDetails.thumb.length === 0) {
+    thumbnail = 'img/placeholder-300x300.jpg'
+  }
+  const contextDetails = '<img src="' + thumbnail + '" class="restaurants_details__image"><div class="restaurants_details__content"><div class="restaurants_details__content_name">' + restaurantDetails.name + '</div><div class="restaurants_details__content_location">' + restaurantDetails.location.address + '</div><div class="restaurants_details__content_booking_' + restaurantDetails.has_table_booking + '"></div><div class="restaurants_details__content_delivery_' + delivery + '"></div><div class="restaurants_details__content_heading">CUISINES</div><div class="restaurants_details__content_cuisines">' + restaurantDetails.cuisines + '</div><div class="restaurants_details__content_heading">PHONE</div><div class="restaurants_details__content_phone">' + restaurantDetails.phone_numbers + '</div><div class="restaurants_details__content_heading">OPENING HOURS</div><div class="restaurants_details__content_openinghours">' + restaurantDetails.timings + '</div></div>'
   $('.restaurants_details').html(contextDetails)
   $('.restaurants_details__content_booking_0').html('<i class="fas fa-times"></i>No Bookings')
   $('.restaurants_details__content_booking_1').html('<i class="fas fa-check"></i>Bookings Available')
@@ -235,5 +265,29 @@ function displayRestaurantDetails (restaurantDetails) {
   })
   $('.restaurants_details__image').on('error', function () {
     $('.restaurants_details').show()
+  })
+}
+
+// Sort the list of restaurant by Rating.
+function sortByRating () {
+  console.log($('.restaurants__list').html())
+  $('.restaurants__restaurant').each(function () {
+    if ((parseFloat($(this).attr('data-rating')) > rating[1]) || (parseFloat($(this).attr('data-rating')) < rating[0])) {
+      $(this).hide()
+    } else {
+      $(this).show()
+    }
+  })
+}
+
+// Sort the list of restaurant by Cost.
+function sortByCost () {
+  console.log($('.restaurants__list').html())
+  $('.restaurants__restaurant').each(function () {
+    if ((parseInt($(this).attr('data-cost')) > cost[1]) || (parseInt($(this).attr('data-cost')) < cost[0])) {
+      $(this).hide()
+    } else {
+      $(this).show()
+    }
   })
 }
