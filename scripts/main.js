@@ -144,13 +144,13 @@ function displayRestaurants (restaurant) {
 function displayCategories (categories) {
   for (var i = 0; i < categories.categories.length; i++) {
     if (categories.categories[i].categories.name === 'Dinner') {
-      $('input[name="dinner"').attr('id', categories.categories[i].categories.id)
+      $('input[name="dinner"]').attr('id', categories.categories[i].categories.id)
     } else if (categories.categories[i].categories.name === 'Takeaway') {
-      $('input[name="takeaway"').attr('id', categories.categories[i].categories.id)
+      $('input[name="takeaway"]').attr('id', categories.categories[i].categories.id)
     } else if (categories.categories[i].categories.name === 'Delivery') {
-      $('input[name="delivery"').attr('id', categories.categories[i].categories.id)
+      $('input[name="delivery"]').attr('id', categories.categories[i].categories.id)
     } else if (categories.categories[i].categories.name === 'Pubs & Bars') {
-      $('input[name="pubsbars"').attr('id', categories.categories[i].categories.id)
+      $('input[name="pubsbars"]').attr('id', categories.categories[i].categories.id)
     }
   }
 }
@@ -159,27 +159,27 @@ function displayCategories (categories) {
 function displayCuisines (cuisines) {
   for (var i = 0; i < cuisines.cuisines.length; i++) {
     if (cuisines.cuisines[i].cuisine.cuisine_name === 'Others') {
-      $('input[name="other"').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
+      $('input[name="other"]').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
     } else if (cuisines.cuisines[i].cuisine.cuisine_name === 'Pub Food') {
-      $('input[name="pubfood"').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
+      $('input[name="pubfood"]').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
     } else if (cuisines.cuisines[i].cuisine.cuisine_name === 'Chinese') {
-      $('input[name="chinese"').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
+      $('input[name="chinese"]').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
     } else if (cuisines.cuisines[i].cuisine.cuisine_name === 'Sandwich') {
-      $('input[name="sandwich"').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
+      $('input[name="sandwich"]').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
     } else if (cuisines.cuisines[i].cuisine.cuisine_name === 'Italian') {
-      $('input[name="italian"').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
+      $('input[name="italian"]').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
     } else if (cuisines.cuisines[i].cuisine.cuisine_name === 'Bakery') {
-      $('input[name="bakery"').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
+      $('input[name="bakery"]').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
     } else if (cuisines.cuisines[i].cuisine.cuisine_name === 'Asian') {
-      $('input[name="asian"').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
+      $('input[name="asian"]').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
     } else if (cuisines.cuisines[i].cuisine.cuisine_name === 'Fast Food') {
-      $('input[name="fastfood"').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
+      $('input[name="fastfood"]').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
     } else if (cuisines.cuisines[i].cuisine.cuisine_name === 'Pizza') {
-      $('input[name="pizza"').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
+      $('input[name="pizza"]').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
     } else if (cuisines.cuisines[i].cuisine.cuisine_name === 'Coffee and Tea') {
-      $('input[name="coffeeandtea"').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
+      $('input[name="coffeeandtea"]').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
     } else if (cuisines.cuisines[i].cuisine.cuisine_name === 'Cafe Food') {
-      $('input[name="cafefood"').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
+      $('input[name="cafefood"]').attr('id', cuisines.cuisines[i].cuisine.cuisine_id)
     }
   }
 }
